@@ -1,5 +1,6 @@
 module Media
 
-# package code goes here
+include("system.jl")
+include("compat.jl")
 
-end # module
+end
