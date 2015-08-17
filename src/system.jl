@@ -1,6 +1,7 @@
 using Requires, Lazy, MacroTools
 
-export render, setdisplay, unsetdisplay, getdisplay, current_input, Media, @media, media
+export render, setdisplay, unsetdisplay, getdisplay, current_input, Media, @media, media,
+        @render
 
 # Some type system utils
 
@@ -113,6 +114,9 @@ pool(input) = pool()
 setdisplay(T, output) =
   pool()[T] = output
 
+setdisplay(input, T, output) =
+  pool(input)[T] = output
+
 # In order to actually display things, we need to know what the current
 # input device is. This is stored as a dynamically-bound global variable,
 # with the intention that an input device will rebind the current input
@@ -137,3 +141,18 @@ current_input() = input[]
 
 render(x; options = Dict()) =
   render(getdisplay(typeof(x), pool(current_input())), x; options = options)
+
+# Most of the time calls to `render` will defer to rendering some lower-level
+# type. `@render` reduces the boilerplate here by automatically calling
+# `render` again on the return type.
+
+macro render(T, x, f)
+  @capture(T, d_::T′_ | T′_)
+  d == nothing && (d = gensym())
+  @gensym result
+  quote
+    function Media.render($d::$T′, $x; options = options)
+      Media.render($d, $f, options = options)
+    end
+  end |> esc
+end
