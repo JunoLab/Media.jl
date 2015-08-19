@@ -32,7 +32,7 @@ and its descendants (which is useful for dispatch).
     @media Bar <: Foo
     Bar::FooT
 """
-macro media (def)
+macro media(def)
   T = namify(def)
   def = compare2desc(def)
   quote
