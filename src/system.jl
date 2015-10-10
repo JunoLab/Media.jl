@@ -151,7 +151,7 @@ macro render(T, x, f)
   d == nothing && (d = gensym())
   @gensym result
   quote
-    function Media.render($d::$T′, $x; options = options)
+    function Media.render($d::$T′, $x; options = @d())
       Media.render($d, $f, options = options)
     end
   end |> esc
