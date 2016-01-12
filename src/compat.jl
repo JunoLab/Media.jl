@@ -17,7 +17,7 @@ function hookless(f)
   end
 end
 
-pushdisplay(DisplayHook())
+@init pushdisplay(DisplayHook())
 
 # Lives in the new system
 
