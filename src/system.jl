@@ -117,6 +117,13 @@ setdisplay(T, output) =
 setdisplay(input, T, output) =
   pool(input)[T] = output
 
+macro defpool(D)
+  :(let pool = Dict()
+      Media.pool(::$D) = merge(Media.pool(), pool)
+      Media.setdisplay(::$D, T, input) = pool[T] = input
+    end) |> esc
+end
+
 # In order to actually display things, we need to know what the current
 # input device is. This is stored as a dynamically-bound global variable,
 # with the intention that an input device will rebind the current input
