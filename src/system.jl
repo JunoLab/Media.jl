@@ -84,15 +84,15 @@ media(AbstractVector, Media.List)
 # (e.g. `Float64`, `AbstractMatrix`) can also be used (which will
 # override the media trait of the relevant objects).
 
-const _pool = @d()
+const _pool = d()
 
-pool() = _pool
+defaultpool() = _pool
 
 setdisplay(T, output) =
-  pool()[T] = output
+  defaultpool()[T] = output
 
 unsetdisplay(T) =
-  haskey(pool(), T) && delete!(pool(), T)
+  haskey(defaultpool(), T) && delete!(defaultpool(), T)
 
 function getdisplay(T, pool)
   K = nearest(T, [Any, keys(pool)...])
@@ -109,17 +109,14 @@ end
 # with the same kernel. At the same time you can link a global display
 # to both (e.g. a popup window for plots).
 
-pool(input) = pool()
-
-setdisplay(T, output) =
-  pool()[T] = output
+pool(input) = defaultpool()
 
 setdisplay(input, T, output) =
   pool(input)[T] = output
 
 macro defpool(D)
   :(let pool = Dict()
-      Media.pool(::$D) = merge(Media.pool(), pool)
+      Media.pool(::$D) = merge(Media.defaultpool(), pool)
       Media.setdisplay(::$D, T, input) = pool[T] = input
     end) |> esc
 end
@@ -146,8 +143,12 @@ current_input() = input[]
 # Displays should override `render` to display the given object appropriately.
 # `options` can be used to override implementation details like mime type.
 
+pool() = pool(current_input())
+
+getdisplay(x) = getdisplay(x, pool())
+
 render(x; options = Dict()) =
-  render(getdisplay(typeof(x), pool(current_input())), x; options = options)
+  render(getdisplay(typeof(x)), x; options = options)
 
 # Most of the time calls to `render` will defer to rendering some lower-level
 # type. `@render` reduces the boilerplate here by automatically calling
