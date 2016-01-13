@@ -94,9 +94,10 @@ setdisplay(T, output) =
 unsetdisplay(T) =
   haskey(defaultpool(), T) && delete!(defaultpool(), T)
 
-function getdisplay(T, pool)
+function getdisplay(T, pool; default = nothing)
   K = nearest(T, [Any, keys(pool)...])
   K == Any && (K = nearest(media(T), keys(pool)))
+  K == Any && default ≠ nothing && return default
   return pool[K]
 end
 
@@ -145,7 +146,8 @@ current_input() = input[]
 
 pool() = pool(current_input())
 
-getdisplay(x) = getdisplay(x, pool())
+getdisplay(x; default = nothing) =
+  getdisplay(x, pool(), default = default)
 
 render(x; options = Dict()) =
   render(getdisplay(typeof(x)), x; options = options)
