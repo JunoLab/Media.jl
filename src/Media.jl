@@ -1,4 +1,4 @@
-__precompile__()
+isdefined(Base, :__precompile__) && __precompile__()
 
 module Media
 
