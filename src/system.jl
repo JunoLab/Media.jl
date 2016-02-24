@@ -149,8 +149,10 @@ pool() = pool(current_input())
 getdisplay(x; default = nothing) =
   getdisplay(x, pool(), default = default)
 
+primarytype(x) = typeof(x).name.primary
+
 render(x; options = Dict()) =
-  render(getdisplay(typeof(x)), x; options = options)
+  render(getdisplay(primarytype(x)), x; options = options)
 
 # Most of the time calls to `render` will defer to rendering some lower-level
 # type. `@render` reduces the boilerplate here by automatically calling
