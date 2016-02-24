@@ -88,12 +88,26 @@ const _pool = d()
 
 defaultpool() = _pool
 
+"""
+    setdisplay([input], T, output)
+
+Display `T` objects using `output` when produced by `input`.
+
+`T` is an object type or media type, e.g. `Gadfly.Plot` or `Media.Graphical`.
+
+    display(Editor(), Image, Console())
+"""
 setdisplay(T, output) =
   defaultpool()[T] = output
 
 unsetdisplay(T) =
   haskey(defaultpool(), T) && delete!(defaultpool(), T)
 
+"""
+    getdisplay(T)
+
+Find out what output device `T` will display on.
+"""
 function getdisplay(T, pool; default = nothing)
   K = nearest(T, [Any, keys(pool)...])
   K == Any && (K = nearest(media(T), keys(pool)))
