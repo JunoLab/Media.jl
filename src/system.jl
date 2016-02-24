@@ -124,11 +124,6 @@ end
 # with the same kernel. At the same time you can link a global display
 # to both (e.g. a popup window for plots).
 
-pool(input) = defaultpool()
-
-setdisplay(input, T, output) =
-  pool(input)[T] = output
-
 macro defpool(D)
   :(let pool = Dict()
       Media.pool(::$D) = merge(Media.defaultpool(), pool)
