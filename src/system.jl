@@ -128,6 +128,7 @@ macro defpool(D)
   :(let pool = Dict()
       Media.pool(::$D) = merge(Media.defaultpool(), pool)
       Media.setdisplay(::$D, T, input) = pool[T] = input
+      Media.unsetdisplay(::$D, T) = delete!(pool, T)
     end) |> esc
 end
 
