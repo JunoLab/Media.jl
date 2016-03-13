@@ -79,6 +79,7 @@ media(AbstractVector, Media.List)
 @require Vega media(Vega.VegaVisualization, Media.Plot)
 @require Images media(Images.Image, Media.Image)
 @require DataFrames media(DataFrames.DataFrame, Media.Dataset)
+@require Compose media(Compose.Context, Media.Graphical)
 
 # A "pool" simply associates types with output devices. Obviously
 # the idea is to use media types for genericity, but object types
