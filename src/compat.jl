@@ -23,11 +23,9 @@ end
 
 type NoDisplay end
 
-function render(::NoDisplay, x; options = Dict())
+function render(::NoDisplay, x)
   hookless() do
-    haskey(options, :mime) ?
-      display(options[:mime], x) :
-      display(x)
+    display(x)
   end
 end
 

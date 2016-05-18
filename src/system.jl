@@ -154,7 +154,6 @@ current_input() = input[]
 
 # `render` is a stand-in for `display` here.
 # Displays should override `render` to display the given object appropriately.
-# `options` can be used to override implementation details like mime type.
 
 pool() = pool(current_input())
 
@@ -163,8 +162,8 @@ getdisplay(x; default = nothing) =
 
 primarytype(x) = typeof(x).name.primary
 
-render(x; options = Dict()) =
-  render(getdisplay(primarytype(x)), x; options = options)
+render(x) =
+  render(getdisplay(primarytype(x)), x)
 
 # Most of the time calls to `render` will defer to rendering some lower-level
 # type. `@render` reduces the boilerplate here by automatically calling
@@ -175,8 +174,8 @@ macro render(T, x, f)
   d == nothing && (d = gensym())
   @gensym result
   quote
-    function Media.render($d::$T′, $x; options = @d())
-      Media.render($d, $f, options = options)
+    function Media.render($d::$T′, $x)
+      Media.render($d, $f)
     end
   end |> esc
 end
