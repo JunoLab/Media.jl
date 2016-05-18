@@ -37,7 +37,7 @@ macro media(def)
   def = compare2desc(def)
   quote
     abstract $def
-    typealias $(symbol(string(T, "T"))){T<:$T} Type{T}
+    typealias $(Symbol(string(T, "T"))){T<:$T} Type{T}
     nothing
   end |> esc
 end
