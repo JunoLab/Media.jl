@@ -156,6 +156,7 @@ current_input() = input[]
 # Displays should override `render` to display the given object appropriately.
 
 pool() = pool(current_input())
+pool(::Void) = defaultpool()
 
 getdisplay(x; default = nothing) =
   getdisplay(x, pool(), default = default)
