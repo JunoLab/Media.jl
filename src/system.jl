@@ -3,6 +3,8 @@ using Requires, Lazy, MacroTools
 export render, setdisplay, unsetdisplay, getdisplay, current_input, Media, @media, media,
         @render
 
+VERSION < v"0.5-" && const supertype = super
+
 # Some type system utils
 
 distance(S, T) =

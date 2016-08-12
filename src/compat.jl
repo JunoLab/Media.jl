@@ -30,3 +30,5 @@ function render(::NoDisplay, x)
 end
 
 setdisplay(Any, NoDisplay())
+
+render(x, y; options = d()) = render(x, y)
