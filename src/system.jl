@@ -77,7 +77,6 @@ media(Any, Media.Textual)
 media(AbstractMatrix, Media.Matrix)
 media(AbstractVector, Media.List)
 
-@require Gadfly media(Gadfly.Plot, Media.Plot)
 @require Vega media(Vega.VegaVisualization, Media.Plot)
 @require Images media(Images.Image, Media.Image)
 @require DataFrames media(DataFrames.DataFrame, Media.Dataset)
