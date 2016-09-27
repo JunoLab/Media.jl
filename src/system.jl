@@ -1,4 +1,4 @@
-using Requires, Lazy, MacroTools
+using Lazy, MacroTools
 
 export render, setdisplay, unsetdisplay, getdisplay, current_input, Media, @media, media,
         @render
@@ -76,11 +76,6 @@ media(Any, Media.Textual)
 
 media(AbstractMatrix, Media.Matrix)
 media(AbstractVector, Media.List)
-
-@require Vega media(Vega.VegaVisualization, Media.Plot)
-@require Images media(Images.Image, Media.Image)
-@require DataFrames media(DataFrames.DataFrame, Media.Dataset)
-@require Compose media(Compose.Context, Media.Graphical)
 
 # A "pool" simply associates types with output devices. Obviously
 # the idea is to use media types for genericity, but object types
