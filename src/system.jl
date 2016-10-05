@@ -28,7 +28,7 @@ Similar to `abstract`:
 
     @media Foo
 
-defines Foo, as well as FooT, the type representing Foo
+defines `Foo`, as well as `FooT`, the type representing `Foo`
 and its descendants (which is useful for dispatch).
 
     @media Bar <: Foo
