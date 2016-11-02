@@ -17,7 +17,7 @@ function hookless(f)
   end
 end
 
-@init pushdisplay(DisplayHook())
+init_compat() = pushdisplay(DisplayHook())
 
 # Lives in the new system
 
@@ -31,4 +31,4 @@ end
 
 setdisplay(Any, NoDisplay())
 
-render(x, y; options = d()) = render(x, y)
+render(x, y; options = Dict()) = render(x, y)

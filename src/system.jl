@@ -1,4 +1,4 @@
-using Lazy, MacroTools
+using MacroTools
 
 export render, setdisplay, unsetdisplay, getdisplay, current_input, Media, @media, media,
         @render
@@ -82,7 +82,7 @@ media(AbstractVector, Media.List)
 # (e.g. `Float64`, `AbstractMatrix`) can also be used (which will
 # override the media trait of the relevant objects).
 
-const _pool = d()
+const _pool = Dict()
 
 defaultpool() = _pool
 
