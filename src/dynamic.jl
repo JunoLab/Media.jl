@@ -74,7 +74,7 @@ macro dynamic(def)
   error("Unsupported @dynamic expression")
 end
 
-Base.parent(t::Task) = t.parent
+parent(t::Task) = t.parent
 
 storage(t::Task) =
   t.storage == nothing ? (t.storage = ObjectIdDict()) :
