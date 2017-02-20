@@ -107,7 +107,7 @@ unsetdisplay(T) =
 Find out what output device `T` will display on.
 """
 function getdisplay(T, pool; default = nothing)
-  K = nearest(T, [Any, keys(pool)...])
+  K = nearest(T, Any[Any, keys(pool)...])
   K == Any && (K = nearest(media(T), keys(pool)))
   K == Any && default ≠ nothing && return default
   return pool[K]
