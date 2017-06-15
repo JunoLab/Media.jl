@@ -38,8 +38,8 @@ macro media(def)
   T = namify(def)
   def = compare2desc(def)
   quote
-    abstract $def
-    typealias $(Symbol(string(T, "T"))){T<:$T} Type{T}
+    abstract type $def end
+    $(Symbol(string(T, "T"))){T<:$T} = Type{T}
     nothing
   end |> esc
 end
