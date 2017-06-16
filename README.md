@@ -1,5 +1,7 @@
 # Media
 
+[![Build Status](https://travis-ci.org/JunoLab/Media.jl.svg?branch=master)](https://travis-ci.org/JunoLab/Media.jl)
+
 Media.jl provides a display system which enables the user handle multiple input/output devices and decide what media types get displayed where. It's used by DevTools.jl and Juno.
 
 Set media types:
