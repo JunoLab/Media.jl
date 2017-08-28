@@ -157,11 +157,7 @@ pool(::Void) = defaultpool()
 getdisplay(x; default = nothing) =
   getdisplay(x, pool(), default = default)
 
-if VERSION > v"0.6-"
-  @eval primarytype(x) = typeof(x).name.wrapper
-else
-  @eval primarytype(x) = typeof(x).name.primary
-end
+@eval primarytype(x) = typeof(x).name.wrapper
 
 render(x) =
   render(getdisplay(primarytype(x)), x)
