@@ -4,7 +4,7 @@ import Base.Multimedia: display
 
 # Lives in the old system, forwarding to the new
 
-type DisplayHook <: Display end
+struct DisplayHook <: Display end
 
 display(::DisplayHook, x) = render(x)
 
@@ -21,7 +21,7 @@ init_compat() = pushdisplay(DisplayHook())
 
 # Lives in the new system
 
-type NoDisplay end
+struct NoDisplay end
 
 function render(::NoDisplay, x)
   hookless() do

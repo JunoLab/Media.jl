@@ -42,7 +42,7 @@
 
 import Base: getindex, setindex!
 
-type Binding{T}
+mutable struct Binding{T}
   root::T
 end
 
