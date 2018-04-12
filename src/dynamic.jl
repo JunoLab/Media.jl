@@ -59,9 +59,9 @@ function dynamic_eq(def)
 end
 
 function dynamic_let(ex)
-  bindings = [:(bind($(esc(b.args[1])), $(esc(b.args[2])), t)) for b in ex.args[2:end]]
+  bindings = [:(bind($(esc(b.args[1])), $(esc(b.args[2])), t)) for b in block(ex.args[1]).args]
   quote
-    t = @task $(esc(ex.args[1]))
+    t = @task $(esc(ex.args[2]))
     $(bindings...)
     schedule(t)
     wait(t)
