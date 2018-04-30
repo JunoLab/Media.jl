@@ -4,7 +4,7 @@ import Base.Multimedia: display
 
 # Lives in the old system, forwarding to the new
 
-struct DisplayHook <: Display end
+struct DisplayHook <: AbstractDisplay end
 
 display(::DisplayHook, x) = render(x)
 

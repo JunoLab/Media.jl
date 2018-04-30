@@ -70,7 +70,7 @@ The default is `Textual`.
 media(x) = media(typeof(x))
 
 media(T, M) =
-  eval(current_module(), :(Media.media{T<:$T}(::Type{T}) = $(Any[M])[1]))
+  eval(@__MODULE__, :((Media.media(::Type{T}) where {T<:$T})= $(Any[M])[1]))
 
 media(Any, Media.Textual)
 
@@ -152,7 +152,7 @@ current_input() = input[]
 # Displays should override `render` to display the given object appropriately.
 
 pool() = pool(current_input())
-pool(::Void) = defaultpool()
+pool(::Nothing) = defaultpool()
 
 getdisplay(x; default = nothing) =
   getdisplay(x, pool(), default = default)

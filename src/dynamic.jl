@@ -77,7 +77,7 @@ end
 parent(t::Task) = t.parent
 
 storage(t::Task) =
-  t.storage == nothing ? (t.storage = ObjectIdDict()) :
+  t.storage == nothing ? (t.storage = IdDict()) :
   t.storage
 
 isroot(task::Task) =
@@ -86,23 +86,22 @@ isroot(task::Task) =
 bindings(task::Task) =
   get!(storage(task), :bindings, Dict())
 
-bind{T}(b::Binding{T}, v::T, t::Task) =
-  bindings(t)[b] = v
+(bind(b::Binding{T}, v::T, t::Task) where T) = bindings(t)[b] = v
 
-function bind{T}(f::Function, b::Binding{T}, v::T)
+function bind(f::Function, b::Binding{T}, v::T) where T
   t = Task(f)
   bind(b, v, t)
   schedule(t)
   return wait(t)
 end
 
-binding{T}(b::Binding{T}, t::Task = current_task()) =
+(binding(b::Binding{T}, t::Task = current_task()) where T)=
   haskey(bindings(t), b) ? bindings(t)[b]::T :
   isroot(t) ? root(b) : binding(b, parent(t))
 
-set!{T}(b::Binding{T}, v::T, t::Task = current_task()) =
+(set!(b::Binding{T}, v::T, t::Task = current_task()) where T)=
   haskey(bindings(t), b) ? (bindings(t)[b] = v) :
   isroot(t) ? (b.root = v) : set!(b, v, parent(t))
 
 getindex(b::Binding) = binding(b)
-setindex!{T}(b::Binding{T}, v::T) = set!(b, v)
+(setindex!(b::Binding{T}, v::T) where T)= set!(b, v)
