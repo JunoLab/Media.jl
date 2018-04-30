@@ -64,7 +64,7 @@ function dynamic_let(ex)
     t = @task $(esc(ex.args[2]))
     $(bindings...)
     schedule(t)
-    wait(t)
+    fetch(t)
   end
 end
 
