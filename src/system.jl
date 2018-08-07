@@ -70,7 +70,7 @@ The default is `Textual`.
 media(x) = media(typeof(x))
 
 media(T, M) =
-  eval(@__MODULE__, :((Media.media(::Type{T}) where {T<:$T})= $(Any[M])[1]))
+  Core.eval(@__MODULE__, :((Media.media(::Type{T}) where {T<:$T})= $(Any[M])[1]))
 
 media(Any, Media.Textual)
 
