@@ -1,2 +1,2 @@
-julia 0.7-
-MacroTools
+julia 0.7
+MacroTools 0.4.4
